@@ -1,6 +1,7 @@
 package io.github.gomestkd.introducaospringmongo.resources;
 
 import io.github.gomestkd.introducaospringmongo.domain.User;
+import io.github.gomestkd.introducaospringmongo.dto.UserDTO;
 import io.github.gomestkd.introducaospringmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +21,11 @@ public class UserResource {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<List<UserDTO>> findAll() {
         List<User> users = userService.findAll();
+        List<UserDTO> userDTOs = users.stream().map(UserDTO::new).toList();
 
-        return ResponseEntity.ok().body(users);
+        return ResponseEntity.ok().body(userDTOs);
     }
 
 }

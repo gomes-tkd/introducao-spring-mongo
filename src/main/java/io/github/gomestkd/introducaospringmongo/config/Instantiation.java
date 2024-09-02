@@ -3,6 +3,7 @@ package io.github.gomestkd.introducaospringmongo.config;
 import io.github.gomestkd.introducaospringmongo.domain.Post;
 import io.github.gomestkd.introducaospringmongo.domain.User;
 import io.github.gomestkd.introducaospringmongo.dto.AuthorDTO;
+import io.github.gomestkd.introducaospringmongo.dto.CommentDTO;
 import io.github.gomestkd.introducaospringmongo.repository.PostRepository;
 import io.github.gomestkd.introducaospringmongo.repository.UserRepository;
 import io.github.gomestkd.introducaospringmongo.services.UserService;
@@ -48,6 +49,13 @@ public class Instantiation implements CommandLineRunner {
                 "Bom dia!", "Tomando um café com muita força jedi. Bençãos e abraços.",
                 new AuthorDTO(alex)
         );
+
+        CommentDTO c1 = new CommentDTO("Boa viagem guria!", sdf.parse("21/03/2018"), new AuthorDTO(alex));
+        CommentDTO c2 = new CommentDTO("Aproveite!", sdf.parse("21/03/2018"), new AuthorDTO(bob));
+        CommentDTO c3 = new CommentDTO("Tenhas um ótimo dia!", sdf.parse("21/03/2018"), new AuthorDTO(alex));
+
+        post1.getComments().addAll(Arrays.asList(c1, c2));
+        post2.getComments().addAll(Arrays.asList(c3));
 
         postRepository.saveAll(Arrays.asList(post1, post2));
 

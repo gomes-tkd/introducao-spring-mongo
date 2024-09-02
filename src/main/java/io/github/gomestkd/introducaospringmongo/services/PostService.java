@@ -6,6 +6,8 @@ import io.github.gomestkd.introducaospringmongo.services.execption.ObjectNotFoun
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostService {
 
@@ -21,5 +23,10 @@ public class PostService {
 
         return post;
     }
+
+    public List<Post> findByTitle(String title) {
+        return postRepository.findByTitleContainingIgnoreCase(title);
+    }
+
 
 }

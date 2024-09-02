@@ -13,6 +13,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -35,4 +37,20 @@ public class PostResource {
         List<Post> list = postService.findByTitle(text);
         return ResponseEntity.ok().body(list);
     }
+
+
+    @RequestMapping(value="/fullsearch", method = RequestMethod.GET)
+    public ResponseEntity<List<Post>> fullSearch(
+            @RequestParam(value = "text", defaultValue = "") String text,
+            @RequestParam(value = "text", defaultValue = "") String minDate,
+            @RequestParam(value = "text", defaultValue = "") String maxDate
+    ) throws UnsupportedEncodingException, ParseException {
+        text = URL.decodeParam(text);
+        Date min = URL.converDate(minDate, new Date(0L));
+        Date max = URL.converDate(maxDate, new Date(0L));
+
+        List<Post> list = postService.fullSearch(text, min, max);
+        return ResponseEntity.ok().body(list);
+    }
+
 }

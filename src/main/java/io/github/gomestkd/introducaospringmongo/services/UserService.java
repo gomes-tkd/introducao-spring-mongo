@@ -1,6 +1,7 @@
 package io.github.gomestkd.introducaospringmongo.services;
 
 import io.github.gomestkd.introducaospringmongo.domain.User;
+import io.github.gomestkd.introducaospringmongo.dto.UserDTO;
 import io.github.gomestkd.introducaospringmongo.repository.UserRepository;
 import io.github.gomestkd.introducaospringmongo.services.execption.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,5 +27,13 @@ public class UserService {
         }
 
         return user;
+    }
+
+    public User insert(User obj) {
+        return userRepository.save(obj);
+    }
+
+    public User fromDTO(UserDTO objDTO) {
+        return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail());
     }
 }

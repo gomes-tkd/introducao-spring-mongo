@@ -33,6 +33,11 @@ public class UserService {
         return userRepository.save(obj);
     }
 
+    public void delete(String id) {
+        findById(id);
+        userRepository.deleteById(id);
+    }
+
     public User fromDTO(UserDTO objDTO) {
         return new User(objDTO.getId(), objDTO.getName(), objDTO.getEmail());
     }
